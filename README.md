@@ -23,7 +23,7 @@ repositories {
 implementation 'io.getplaybook:SDK:1.0.2'
 ```
 
-`1.0.2` is your preferred version.
+`1.0.2` is current version.
 
 #### 3. Turn on Java 8 support ####
 

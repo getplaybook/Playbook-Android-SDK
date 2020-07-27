@@ -12,7 +12,7 @@ Add bintray playbook repository in the `build.gradle` file in the root of your p
 repositories {
     ...
     maven {
-      url  "https://getplaybook.bintray.com/PlaybookSDK"
+        url = "https://maven.pkg.github.com/getplaybook/Playbook-Android-SDK"
     }
 }
 ```

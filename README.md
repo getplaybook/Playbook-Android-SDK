@@ -2,17 +2,17 @@
 
 ## Using Playbook ##
 
-### From bintray ###
+### Installation ###
 
 #### 1. Add repositories ####
 
-Add bintray playbook repository in the `build.gradle` file in the root of your project:
+Add playbook repository in the `build.gradle` file in the root of your project:
 
 ```gradle
 repositories {
     ...
     maven {
-        url = "https://maven.pkg.github.com/getplaybook/Playbook-Android-SDK"
+        url = "https://getplaybook.io/repo/"
     }
 }
 ```
@@ -23,7 +23,7 @@ repositories {
 implementation 'io.getplaybook:SDK:1.0.2'
 ```
 
-`1.0.2` is current version.
+`1.1` is current version.
 
 #### 3. Turn on Java 8 support ####
 
@@ -69,13 +69,20 @@ PlaybookSDK.set(
     "...", // User Id
     listOf("..", "..") // User Segment Ids
 )
-
-// Start Academy Intent
-val intent = Intent(this, PBMainActivity::class.java)
-startActivity(intent)
 ```
 
-#### 5. Remote notification for updates
+#### 5. Starting Activities
+
+```kotlin
+    // Start main activity
+    PlaybookSDK.startMainActivity(context)
+    // Start updates activity
+    PlaybookSDK.startMainActivity(context)
+    // Start academy activity
+    PlaybookSDK.startMainActivity(context)
+```
+
+#### 6. Remote notification for updates
 
 In your `FirebaseMessagingService` class you have to make this changes to receive and show playbook update notifications:
 

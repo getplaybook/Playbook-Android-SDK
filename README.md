@@ -77,9 +77,9 @@ PlaybookSDK.set(
     // Start main activity
     PlaybookSDK.startMainActivity(context)
     // Start updates activity
-    PlaybookSDK.startMainActivity(context)
+    PlaybookSDK.startUpdatesActivity(context)
     // Start academy activity
-    PlaybookSDK.startMainActivity(context)
+    PlaybookSDK.startAcademyActivity(context)
 ```
 
 #### 6. Remote notification for updates

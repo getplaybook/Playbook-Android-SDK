@@ -20,10 +20,10 @@ repositories {
 #### 2. Add PlaybookSDK module dependencies ####
 
 ```gradle
-implementation 'io.getplaybook:SDK:1.0.2'
+implementation 'io.getplaybook:SDK:1.2'
 ```
 
-`1.1` is current version.
+`1.2` is current version.
 
 #### 3. Turn on Java 8 support ####
 

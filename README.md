@@ -69,7 +69,29 @@ PlaybookSDK.set(
     "...", // User Id
     listOf("..", "..") // User Segment Ids
 )
+
+// Extra Settings
+PlaybookSDK.set(this, PBExtraSettings(
+    mainColor = Color.parseColor("#28ace8"),
+    spinnerColor = Color.parseColor("#28ace8"),
+    mainTitle = mapOf(
+        "tr" to "Acme Akademi",
+        "en" to "Acme Academy"
+    )
+))
 ```
+
+#### Posible properties of extra settings
+Prop | Description | Type | default
+------ | ------ | ------ | ------
+`spinnerColor` | Color of main loading spinner  | `Color` | Color.parseColor("#5AC8FA")
+`mainColor` | Application main color | `Color` |  Color.parseColor("#5AC8FA")
+`mainTitle` | Title of main screen | `Map<String,String>` | null
+`mainDescriptionText` | Description of main screen | `Map<String,String>` | null
+`categoryDescriptionText` | Description of main screen | `Map<String,String>` | null
+`QRModule` | State of QRModule | `Boolean` | true
+`updatesModule` | State of Update Module | `Boolean` | true
+---
 
 #### 5. Starting Activities
 
@@ -106,22 +128,27 @@ private fun sendPlaybookNotification(remoteData: Map<String, String>) {
     // Create a pending intent with Playbook feed activitiy
     val pendingIntent = PlaybookSDK.createFeedPendingIntent(this, remoteData["pb_update_id"] as String)
 
-    val channelId = "fcm_default_channel"
+    val channelId = "playbook_channel"
     val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
     val notificationBuilder = NotificationCompat.Builder(this, channelId)
         .setSmallIcon(R.drawable.ic_launcher_foreground)
-        .setContentTitle("Acme Academy")
-        .setContentText(remoteData["body"]) // Your notification content body
+        .setContentTitle(remoteData["title"])
+        .setContentText(remoteData["body"])
         .setAutoCancel(true)
         .setSound(defaultSoundUri)
-        .setContentIntent(pendingIntent)
+        .setFullScreenIntent(pendingIntent, true)
+        .setPriority(NotificationCompat.PRIORITY_HIGH)
+        .setDefaults(Notification.DEFAULT_ALL)
+        .setVibrate(longArrayOf(0L))
 
     val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
     // Since android Oreo notification channel is needed.
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-        val channel = NotificationChannel(channelId, "Playbook Notification Channel", NotificationManager.IMPORTANCE_DEFAULT)
+        Log.d(TAG, remoteData.toString())
+        val channel = NotificationChannel(channelId, "Playbook Notification Channels", NotificationManager.IMPORTANCE_HIGH)
         notificationManager.createNotificationChannel(channel)
+        notificationBuilder.setChannelId(channelId)
     }
 
     notificationManager.notify(0 /* ID of notification */, notificationBuilder.build())

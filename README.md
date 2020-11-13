@@ -54,7 +54,7 @@ android {
 
 #### 4. Initialize PlaybookSDK
 
-Initialize Playbook SDK with your settings information and open the Playbook Activitiy:
+Here you'll need 3 critical information - your SDK Token, an ID for your user (given by you) and the user group(s) the user belongs to. Initialize Playbook SDK with your settings information and open the Playbook Activitiy:
 
 ```kotlin
 
@@ -65,9 +65,9 @@ import io.getplaybook.SDK.PBMainActivity
 // Playbook Basic Setting
 PlaybookSDK.set(
     "Acme Academy", // Company Name 
-    "...", // Client Token
-    "...", // User Id
-    listOf("..", "..") // User Segment Ids
+    "...", // Your SDK token from app.getplaybook.io -> Settings -> App Settings
+    "...", // A unique user id of your user
+    listOf("..", "..") // An array of user group ids from app.getplaybook.io -> User Groups -> External ID, External ID = 1 is for the Everyone User group
 )
 
 // Extra Settings
@@ -105,7 +105,7 @@ First of all you should set available languages as shown code block below for th
     ])
 ```
 
-Current version of the SDK has localizated for only English, Turkish and Arabic yet. But developers can create their localization file from current JSON template. The example template can be found the main dir of the repository.
+Current version of the SDK has localizations for only English, Turkish and Arabic. But developers can create their localization files from the current JSON template. The example template can be found the main dir of the repository.
 
 Please follow the three basic step below to localize the sdk for a new language.
 
@@ -113,18 +113,27 @@ Please follow the three basic step below to localize the sdk for a new language.
 2. Copy the example json to main application assets.
 3. Replace name of file with language short descriptor. For example `de.json`.
 
-#### 5. Starting Activities
+#### 5. Starting Activities - Presenting Academy, Updates or both
+
+In Playbook you can choose to display the main modules (Academy & Updates) separately at different places, or together.
 
 ```kotlin
     // Start main activity
     PlaybookSDK.startMainActivity(context)
-    // Start updates activity
+    // Start updates activity only
     PlaybookSDK.startUpdatesActivity(context)
-    // Start academy activity
+    // Start academy activity only
     PlaybookSDK.startAcademyActivity(context)
 ```
 
 #### 6. Remote notification for updates
+
+Notifications to your app sent for the Playbook SDK should have an **pb_update_id** in the payload section.
+```javascript
+  "data": {
+    "pb_update_id": "PU69a1" // Update ID from app.getplaybook.io -> Updates -> Campaign ID
+  }
+```
 
 In your `FirebaseMessagingService` class you have to make this changes to receive and show playbook update notifications:
 

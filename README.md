@@ -20,10 +20,10 @@ repositories {
 #### 2. Add PlaybookSDK module dependencies ####
 
 ```gradle
-implementation 'io.getplaybook:SDK:1.2'
+implementation 'io.getplaybook:SDK:1.2.1'
 ```
 
-`1.2` is current version.
+`1.2.1` is current version.
 
 #### 3. Turn on Java 8 support ####
 
@@ -93,6 +93,26 @@ Prop | Description | Type | default
 `updatesModule` | State of Update Module | `Boolean` | true
 ---
 
+#### Locale Your SDK
+
+First of all you should set available languages as shown code block below for the SDK.
+
+```swift
+    PlaybookSDK.set(availableLocales: [
+        Locale(identifier: "EN"),
+        Locale(identifier: "DE"),
+        Locale(identifier: "TR")
+    ])
+```
+
+Current version of the SDK has localizated for only English, Turkish and Arabic yet. But developers can create their localization file from current JSON template. The example template can be found the main dir of the repository.
+
+Please follow the three basic step below to localize the sdk for a new language.
+
+1. Set the available languages.
+2. Copy the example json to main application assets.
+3. Replace name of file with language short descriptor. For example `de.json`.
+
 #### 5. Starting Activities
 
 ```kotlin
@@ -145,7 +165,6 @@ private fun sendPlaybookNotification(remoteData: Map<String, String>) {
 
     // Since android Oreo notification channel is needed.
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-        Log.d(TAG, remoteData.toString())
         val channel = NotificationChannel(channelId, "Playbook Notification Channels", NotificationManager.IMPORTANCE_HIGH)
         notificationManager.createNotificationChannel(channel)
         notificationBuilder.setChannelId(channelId)

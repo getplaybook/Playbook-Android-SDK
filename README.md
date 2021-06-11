@@ -59,8 +59,12 @@ Here you'll need 3 critical information - your SDK Token, an ID for your user (g
 ```kotlin
 
 import io.getplaybook.SDK.PlaybookSDK
-import io.getplaybook.SDK.PBMainActivity
 
+PlaybookSDK.set(availableLocales: [
+    Locale(identifier: "EN"),
+    Locale(identifier: "DE"),
+    Locale(identifier: "TR")
+])
 
 // Playbook Basic Setting
 PlaybookSDK.set(
